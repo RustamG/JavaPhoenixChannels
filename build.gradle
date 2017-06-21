@@ -6,14 +6,13 @@ apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'groovy'
-apply plugin: 'com.github.dcendents.android-maven'
 
 if (project.hasProperty('signing.keyId')) {
     apply plugin: 'signing'
 }
 
 group = 'com.github.artemiygrn'
-version = '0.4.0'
+version = '0.4.1'
 
 allprojects {
     sourceCompatibility = 1.7
