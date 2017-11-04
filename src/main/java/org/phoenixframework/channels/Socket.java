@@ -1,9 +1,13 @@
 package org.phoenixframework.channels;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,9 +19,6 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.LinkedBlockingQueue;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -166,6 +167,7 @@ public class Socket {
 
     public Socket(final String endpointUri, final int heartbeatIntervalInMs) {
         log.trace("PhoenixSocket({})", endpointUri);
+        this.objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         this.endpointUri = endpointUri;
         this.heartbeatInterval = heartbeatIntervalInMs;
         this.timer = new Timer("Reconnect Timer for " + endpointUri);
